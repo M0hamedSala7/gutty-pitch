@@ -50,12 +50,32 @@
     <div class="ribbon">🎙️ الفيلم الكامل بصوتنا — بيتحضّر دلوقتي</div>
   </div>
 
-  <a class="cta ghost" href="app.html">📱 جرّب الديمو بنفسك — شغال على منيو Gutty</a>
+  <a class="cta ghost" id="demoBtn" href="app.html">📱 جرّب الديمو بنفسك — شغال على منيو Gutty</a>
 
   <p class="note">عجبكم اللي شفتوه؟ ردوا على الرسالة دي بكلمة — وهنشغّله على مطعمكم.</p>
 
   <div class="foot">Gutty × direct channel — معمول بحُب في بورسعيد ⚓</div>
 
 </div>
+<script defer src="https://cloud.umami.is/script.js" data-website-id="PASTE-UMAMI-ID-HERE"></script>
+<script>
+(function(){
+  var to = (new URLSearchParams(location.search)).get('to') || 'direct';
+  function track(name){ try{ if(window.umami) umami.track(name, { to: to }); }catch(e){} }
+  var demo = document.getElementById('demoBtn');
+  if(demo) demo.addEventListener('click', function(){ track('demo_click'); });
+  function wireVideo(){ /* activates the day the VO video lands (id=filmVideo) */
+    var v = document.getElementById('filmVideo');
+    if(!v || v._wired) return; v._wired = true;
+    var half = false;
+    v.addEventListener('play', function(){ track('film_play'); });
+    v.addEventListener('timeupdate', function(){
+      if(!half && v.duration && v.currentTime / v.duration >= 0.5){ half = true; track('film_half'); }
+    });
+    v.addEventListener('ended', function(){ track('film_done'); });
+  }
+  wireVideo(); setInterval(wireVideo, 2000);
+})();
+</script>
 </body>
 </html>
