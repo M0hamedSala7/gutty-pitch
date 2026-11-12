@@ -3,59 +3,39 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GUTTY — اتعمل على المنيو بتاعكم</title>
+<title>GUTTY — من غير وسيط</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&display=swap" rel="stylesheet">
 <style>
-  :root{ --cream:#FAF6EC; --ink:#141210; --oxblood:#6B1F1F; --gold:#C9A227; }
+  :root{ --cream:#FAF6EC; --ink:#141210; --oxblood:#6B1F1F; }
   *{ margin:0; padding:0; box-sizing:border-box; }
   body{ background:var(--cream); color:var(--ink);
-        font-family:'Cairo',system-ui,'Segoe UI',Tahoma,sans-serif;
-        line-height:1.9; }
+        font-family:'Cairo',system-ui,Tahoma,sans-serif; line-height:1.9; }
   .wrap{ max-width:760px; margin:0 auto; padding:40px 20px 80px; text-align:center; }
-  .pill{ display:inline-block; background:var(--oxblood); color:#fff;
-         font-weight:700; font-size:15px; padding:6px 22px; border-radius:999px;
-         margin-bottom:18px; }
-  h1{ font-weight:900; font-size:clamp(28px,6vw,44px); line-height:1.5; margin-bottom:12px; }
-  h1 .gold{ color:var(--gold); }
-  .sub{ font-size:18px; opacity:.8; margin-bottom:36px; }
+  h1{ font-weight:900; font-size:clamp(28px,6vw,44px); line-height:1.5; margin-bottom:28px; }
   .card{ background:#fff; border:3px solid var(--ink); border-radius:20px;
          box-shadow:12px 12px 0 var(--ink); overflow:hidden; margin-bottom:28px; }
-  .card img{ display:block; width:100%; height:auto; }
-  .ribbon{ background:var(--ink); color:var(--gold); font-weight:700;
-           font-size:16px; padding:10px; }
-  /* VIDEO SLOT — when gutty_story_full_720p.mp4 lands, replace the
-     poster <img> + ribbon with:
-     <video controls preload="metadata" poster="poster.jpg"
-       src="gutty_story_full_720p.mp4" style="width:100%;display:block"></video> */
-  .cta{ display:block; background:var(--oxblood); color:#fff; text-decoration:none;
+  .cta{ display:block; background:#fff; color:var(--oxblood); text-decoration:none;
         font-weight:900; font-size:22px; padding:18px; border-radius:16px;
         border:3px solid var(--ink); box-shadow:8px 8px 0 var(--ink);
         margin:12px 0; transition:transform .12s ease; }
   .cta:active{ transform:translate(4px,4px); box-shadow:4px 4px 0 var(--ink); }
-  .cta.ghost{ background:#fff; color:var(--oxblood); }
-  .note{ font-size:15px; opacity:.7; margin-top:20px; }
-  .foot{ margin-top:48px; font-size:13px; opacity:.5; }
+  .line{ font-size:18px; font-weight:700; margin-top:20px; }
 </style>
 </head>
 <body>
 <div class="wrap">
 
-  <span class="pill">لعيلة Gutty</span>
-  <h1>اتعمل على المنيو الحقيقي بتاعكم.<br><span class="gold">من غير وسيط.</span></h1>
-  <p class="sub">دقيقتين فيلم + ديمو شغال — نفس المنيو، نفس الأسعار، نفس الزبون.</p>
+  <h1>Gutty — من غير وسيط.</h1>
 
   <div class="card">
     <video id="filmVideo" controls preload="metadata" poster="poster.jpg"
       src="gutty_story_full_720p.mp4" style="width:100%;display:block"></video>
-    <div class="ribbon">🎙️ بصوت مؤسس Gutty — القصة كاملة</div>
   </div>
 
-  <a class="cta ghost" id="demoBtn" href="app.html">📱 جرّب الديمو بنفسك — شغال على منيو Gutty</a>
+  <a class="cta" id="demoBtn" href="app.html">الديمو — شغال على منيو Gutty</a>
 
-  <p class="note">عجبكم اللي شفتوه؟ ردوا على الرسالة دي بكلمة — وهنشغّله على مطعمكم.</p>
-
-  <div class="foot">Gutty × direct channel — معمول بحُب في بورسعيد ⚓</div>
+  <p class="line">عايزه شغال عندك؟ رد على الرسالة.</p>
 
 </div>
 <script defer src="https://cloud.umami.is/script.js" data-website-id="2dc7b546-afc0-4735-a315-893335892bf4"></script>
@@ -65,7 +45,7 @@
   function track(name){ try{ if(window.umami) umami.track(name, { to: to }); }catch(e){} }
   var demo = document.getElementById('demoBtn');
   if(demo) demo.addEventListener('click', function(){ track('demo_click'); });
-  function wireVideo(){ /* activates the day the VO video lands (id=filmVideo) */
+  function wireVideo(){
     var v = document.getElementById('filmVideo');
     if(!v || v._wired) return; v._wired = true;
     var half = false;
