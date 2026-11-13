@@ -20,6 +20,8 @@
   .sub{ font-size:18px; opacity:.8; margin-bottom:28px; }
   .card{ background:#fff; border:3px solid var(--ink); border-radius:20px;
          box-shadow:12px 12px 0 var(--ink); overflow:hidden; margin-bottom:28px; }
+  .ytbox{ position:relative; width:100%; aspect-ratio:16/9; background:#000; }
+  .ytbox iframe{ position:absolute; inset:0; width:100%; height:100%; }
   .cta{ display:block; background:var(--oxblood); color:#fff; text-decoration:none;
         font-weight:900; font-size:22px; padding:18px; border-radius:16px;
         border:3px solid var(--ink); box-shadow:8px 8px 0 var(--ink);
@@ -41,8 +43,7 @@
   <p class="sub">شوف الحكاية في ٨٠ ثانية، وبعدها جرّب السيستم كامل بإيدك تحت.</p>
 
   <div class="card">
-    <video id="filmVideo" controls playsinline preload="auto" poster="poster.jpg"
-      src="gutty_story_full_720p.mp4" style="width:100%;display:block"></video>
+    <div class="ytbox"><div id="filmVideo"></div></div>
   </div>
 
   <a class="cta" id="demoBtn" href="app.html">دوس هنا — جرّب سيستم Gutty بنفسك 👆</a>
@@ -68,17 +69,19 @@
   }
   var wa = document.getElementById('waBtn');
   if(wa) wa.addEventListener('click', function(){ track('wa_contact'); });
-  function wireVideo(){
-    var v = document.getElementById('filmVideo');
-    if(!v || v._wired) return; v._wired = true;
-    var half = false;
-    v.addEventListener('play', function(){ track('film_play'); });
-    v.addEventListener('timeupdate', function(){
-      if(!half && v.duration && v.currentTime / v.duration >= 0.5){ half = true; track('film_half'); }
-    });
-    v.addEventListener('ended', function(){ track('film_done'); });
-  }
-  wireVideo(); setInterval(wireVideo, 2000);
+  var tag=document.createElement('script');tag.src="https://www.youtube.com/iframe_api";document.head.appendChild(tag);
+  var ytPlayer=null,ytHalf=false;
+  function ytTick(){ try{ var d=ytPlayer.getDuration(),c=ytPlayer.getCurrentTime();
+    if(!ytHalf&&d&&c/d>=0.5){ytHalf=true;track('film_half');}
+    if(c<d) setTimeout(ytTick,2000); }catch(e){} }
+  window.onYouTubeIframeAPIReady=function(){
+    ytPlayer=new YT.Player('filmVideo',{width:'100%',height:'100%',videoId:'-GHmJKZ_wPg',
+      playerVars:{rel:0,modestbranding:1,playsinline:1},
+      events:{onStateChange:function(e){
+        if(e.data===YT.PlayerState.PLAYING){if(!window._fp){window._fp=1;track('film_play');}ytTick();}
+        if(e.data===YT.PlayerState.ENDED){track('film_done');}
+      }}});
+  };
 })();
 </script>
 </body>
