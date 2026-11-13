@@ -58,7 +58,10 @@
   var to = (new URLSearchParams(location.search)).get('to') || 'direct';
   function track(name){ try{ if(window.umami) umami.track(name, { to: to }); }catch(e){} }
   var demo = document.getElementById('demoBtn');
-  if(demo) demo.addEventListener('click', function(){ track('demo_click'); });
+  if(demo){
+    if(location.search) demo.href = 'app.html' + location.search;
+    demo.addEventListener('click', function(){ track('demo_click'); });
+  }
   var wa = document.getElementById('waBtn');
   if(wa) wa.addEventListener('click', function(){ track('wa_contact'); });
   function wireVideo(){
