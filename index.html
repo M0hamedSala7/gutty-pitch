@@ -27,6 +27,7 @@
   .cta:active{ transform:translate(4px,4px); box-shadow:4px 4px 0 var(--ink); }
   .cheat{ font-size:16px; opacity:.8; margin-top:14px; }
   .sign{ font-size:18px; font-weight:700; margin-top:28px; }
+  .sign a{ color:var(--oxblood); font-weight:900; }
   .sig{ margin-top:64px; }
   .sig span{ font-family:'Cairo',sans-serif; font-weight:400; font-size:15px;
              opacity:.4; letter-spacing:0; }
@@ -47,7 +48,7 @@
   <a class="cta" id="demoBtn" href="app.html">افتح سيستم Gutty وجرّبه بإيدك دلوقتي ←</a>
   <p class="cheat">جوة اللينك: ١. اطلب أوردر في ثواني · ٢. صمّم باقة شهرية على مزاجك · ٣. افتح "لوحة التحكم" وشوف تحضير المطبخ</p>
 
-  <p class="sign">لو شايف إن ده مكان Gutty الطبيعي.. رد عليا في الرسالة ونكمّلها سوا.</p>
+  <p class="sign">لو شايف إن ده مكان Gutty الطبيعي.. <a id="waBtn" href="https://wa.me/201205344493?text=%D9%85%D8%B3%D8%A7%D8%A1%20%D8%A7%D9%84%D8%AE%D9%8A%D8%B1%20%D9%8A%D8%A7%20%D9%85%D8%AD%D9%85%D8%AF%D8%8C%20%D8%B4%D9%88%D9%81%D9%86%D8%A7%20%D9%81%D9%8A%D8%AF%D9%8A%D9%88%20%D9%88%D8%B3%D9%8A%D8%B3%D8%AA%D9%85%20Gutty" target="_blank">كلمني على واتساب من هنا</a> ونكمّلها سوا.</p>
   <div class="sig"><span>مـحـمـد صـلاح</span></div>
 
 </div>
@@ -58,6 +59,8 @@
   function track(name){ try{ if(window.umami) umami.track(name, { to: to }); }catch(e){} }
   var demo = document.getElementById('demoBtn');
   if(demo) demo.addEventListener('click', function(){ track('demo_click'); });
+  var wa = document.getElementById('waBtn');
+  if(wa) wa.addEventListener('click', function(){ track('wa_contact'); });
   function wireVideo(){
     var v = document.getElementById('filmVideo');
     if(!v || v._wired) return; v._wired = true;
